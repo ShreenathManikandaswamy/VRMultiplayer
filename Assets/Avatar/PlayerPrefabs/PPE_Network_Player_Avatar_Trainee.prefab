@@ -1318,8 +1318,8 @@ MonoBehaviour:
   m_MoveXParameter: MoveX
   m_MoveZParameter: MoveZ
   m_SpeedForFullWalk: 0.01
-  m_DeadZone: 0.01
-  m_DampTime: 0.01
+  m_DeadZone: 0.1
+  m_DampTime: 0.05
 --- !u!114 &5651523869468275871
 MonoBehaviour:
   m_ObjectHideFlags: 0

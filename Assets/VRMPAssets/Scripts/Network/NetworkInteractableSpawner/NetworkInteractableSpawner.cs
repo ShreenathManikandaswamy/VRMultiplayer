@@ -97,6 +97,7 @@ namespace UnityEngine.XR.Templates.VRMultiplayer
                     if (CheckInteractablePosition())
                     {
                         m_SpawnCooldownTimer = spawnCooldown;
+                        DespawnCurrentInteractableIfNeeded();
                         m_CurrentInteractableReference.Value = default;
                     }
                 }
@@ -109,7 +110,50 @@ namespace UnityEngine.XR.Templates.VRMultiplayer
 
         bool CheckInteractablePosition()
         {
+            INetworkInteractableSpawnPolicy spawnPolicy = GetSpawnPolicy(m_CurrentInteractable);
+
+            if (spawnPolicy != null)
+            {
+                if (spawnPolicy.blocksSpawnerRespawn || m_CurrentInteractable.isInteracting)
+                    return false;
+            }
+
             return Vector3.Distance(m_CurrentInteractable.transform.position, spawnTransform.position) > distanceToSpawnNew;
+        }
+
+        INetworkInteractableSpawnPolicy GetSpawnPolicy(NetworkBaseInteractable interactable)
+        {
+            INetworkInteractableSpawnPolicy spawnPolicy = interactable.GetComponent<INetworkInteractableSpawnPolicy>();
+            if (spawnPolicy == null)
+                spawnPolicy = interactable.GetComponentInChildren<INetworkInteractableSpawnPolicy>(true);
+
+            return spawnPolicy;
+        }
+
+        void DespawnCurrentInteractableIfNeeded()
+        {
+            if (m_CurrentInteractable == null)
+                return;
+
+            INetworkInteractableSpawnPolicy spawnPolicy = GetSpawnPolicy(m_CurrentInteractable);
+            if (spawnPolicy == null || !spawnPolicy.despawnWhenSpawnerRespawns)
+                return;
+
+            if (!m_CurrentInteractable.IsSpawned)
+            {
+                Destroy(m_CurrentInteractable.gameObject);
+                return;
+            }
+
+            if (!m_CurrentInteractable.IsOwner)
+            {
+                m_CurrentInteractable.NetworkObject.ChangeOwnership(NetworkManager.Singleton.LocalClientId);
+            }
+
+            if (m_CurrentInteractable.IsOwner)
+            {
+                m_CurrentInteractable.NetworkObject.Despawn();
+            }
         }
 
         void CheckSpawn()

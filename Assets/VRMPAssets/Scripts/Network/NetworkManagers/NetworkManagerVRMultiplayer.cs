@@ -65,6 +65,7 @@ namespace XRMultiplayer
             }
 
             NetworkConfig.PlayerPrefab = selectedPrefab;
+            NetworkConfig.ForceSamePrefabs = false;
             Utils.Log($"Selected player role {role}. Player prefab set to {selectedPrefab.name}.");
             return true;
         }

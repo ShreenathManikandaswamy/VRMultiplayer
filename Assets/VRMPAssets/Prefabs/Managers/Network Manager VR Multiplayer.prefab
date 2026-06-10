@@ -51,7 +51,8 @@ MonoBehaviour:
     NetworkTransport: {fileID: 0}
     PlayerPrefab: {fileID: 0}
     Prefabs:
-      NetworkPrefabsLists: []
+      NetworkPrefabsLists:
+      - {fileID: 11400000, guid: 41529918b9b64777aa6775ffa83f9c55, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -60,7 +61,7 @@ MonoBehaviour:
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 1
-    ForceSamePrefabs: 1
+    ForceSamePrefabs: 0
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
     RpcHashSize: 0
@@ -88,6 +89,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 602d40a0e3e4bd540a7a1070430d0368, type: 2}
       - {fileID: 11400000, guid: 7c6e842cd7704084fa88682fe4e71ae6, type: 2}
       - {fileID: 11400000, guid: a4390c5271cb1294ba726e4409e1ec04, type: 2}
+      - {fileID: 11400000, guid: 41529918b9b64777aa6775ffa83f9c55, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -96,7 +98,7 @@ MonoBehaviour:
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 1
-    ForceSamePrefabs: 1
+    ForceSamePrefabs: 0
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
     RpcHashSize: 0

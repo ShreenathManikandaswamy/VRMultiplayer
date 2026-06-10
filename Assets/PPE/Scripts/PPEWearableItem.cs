@@ -10,7 +10,7 @@ namespace XRMultiplayer.PPE
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(NetworkObject))]
-    public class PPEWearableItem : NetworkBehaviour
+    public class PPEWearableItem : NetworkBehaviour, XRMultiplayer.INetworkInteractableSpawnPolicy
     {
         [SerializeField] PPEItemType m_ItemType;
         [SerializeField] Vector3 m_EquippedLocalPositionOffset;
@@ -28,6 +28,8 @@ namespace XRMultiplayer.PPE
         public PPEItemType itemType => m_ItemType;
         public bool isEquipped => m_IsEquipped.Value;
         public ulong wearerClientId => m_WearerClientId.Value;
+        public bool blocksSpawnerRespawn => m_IsEquipped.Value;
+        public bool despawnWhenSpawnerRespawns => !m_IsEquipped.Value;
 
         void Awake()
         {
